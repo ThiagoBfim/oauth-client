@@ -28,6 +28,9 @@ Access from your browser the url: `http://localhost:8090/`
 
 It will redirect you to the KeyCloak url:
 
+![Keycloak Login](./images/keycloak-login.png)
+
+
 Something like this:
 `http://localhost:8080/realms/myrealm/protocol/openid-connect/auth?response_type=code&client_id=myclient&scope=openid%20profile%20email%20roles&state=QbKiLpoxFTswgum5K9qwtLPRKKPk-bShfDfq9NmhXRs%3D&redirect_uri=http://localhost:8090/login/oauth2/code/keycloak&nonce=A-9khzl9OrnfgfJyNCv6TJy0jViNalf2-YrzsN1jGgo`
 

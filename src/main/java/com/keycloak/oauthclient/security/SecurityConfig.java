@@ -37,10 +37,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
             .anyRequest()
-//            .authenticated()
-//            .and()
-//            .oauth2Login()
-            .permitAll()
+            .authenticated()
+            .and()
+            .oauth2Login()
             .and()
             .logout()
             .addLogoutHandler(keycloakLogoutHandler)
