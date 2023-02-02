@@ -28,8 +28,4 @@ public class UserController {
         return principal.getUserInfo().getFullName() + "AccessToken:" + principal.getIdToken().getTokenValue();
     }
 
-    @GetMapping("/teste")
-    public void userDetails() {
-        System.out.println("aaaa");
-    }
 }
