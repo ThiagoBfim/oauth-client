@@ -1,0 +1,21 @@
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            user-name-attribute: "preferred_username"
+            issuer-uri: http://localhost:8080/realms/myrealm
+        registration:
+          keycloak:
+            clientId: myclient
+            clientSecret: Q5GRuR6boNzb3jI3XxdXTNKjOP0JOSQW
+            scope: openid,profile,email,roles
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8090/teste
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/myrealm
+
+server:
+  port: 8090
