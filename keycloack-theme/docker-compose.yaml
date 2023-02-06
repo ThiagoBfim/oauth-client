@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    container_name: keycloak
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=mysql
+      - KC_DB_URL_HOST=db
+      - KC_DB_SCHEMA=keycloak
+      - KC_DB_URL=jdbc:mysql://db:3306/keycloak
+      - KC_DB_URL_PORT=3306
+      - KC_DB_USERNAME=root
+      - KC_DB_PASSWORD=root
+    volumes:
+      - ./custom-theme:/opt/keycloak/themes/custom-theme
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    command:
+      - start-dev
+  db:
+    image: mysql:8
+    container_name: keycloak_mysql
+    restart: always
+    tty: true
+    ports:
+      - "33306:3306"
+    volumes:
+      - ./.docker/dbdata:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=keycloak
+      - MYSQL_ROOT_PASSWORD=root
