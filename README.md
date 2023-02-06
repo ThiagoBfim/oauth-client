@@ -16,14 +16,21 @@ To set up the project, you will need to install Keycloak and this Application, f
 
 #### Keycloak
 
-Use this link to initialize and start the Keycloak in your machin:
+Use this link to initialize and start the Keycloak in your machine:
 
 [Keycloak - Docker](https://www.keycloak.org/getting-started/getting-started-docker)
+
+##### Running with Custom theme
+
+Go to keycloak-theme and run `docker-compose up`
+
+This command will create the keycloak with mysql database and with a custom theme.
+
+Change the theme: You should go to Realm settings >  Themes > Login theme
 
 #### Spring Boot Client
 
 Execute `./gradlew bootRun`
-
 
 
 Notes: If you wanna to package the application, run this command: `./gradlew build`
