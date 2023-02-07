@@ -22,18 +22,22 @@ Use this link to initialize and start the Keycloak in your machine:
 
 ##### Running with Custom theme
 
-Go to keycloak-theme and run `docker-compose up`
+Run this command to build the application and run it with Docker composer
+`./gradlew build && mv -f build/libs/oauth-client-0.0.1.jar keycloak-theme && cd keycloak-theme && docker-compose up --build`
 
-This command will create the keycloak with mysql database and with a custom theme.
+This command above will create the keycloak with mysql database and with a custom theme.
 
 Change the theme: You should go to Realm settings >  Themes > Login theme
+
+You should follow this steps to create another realm, this is required for the client be able to run:
+[Keycloak - Docker](https://www.keycloak.org/getting-started/getting-started-docker)
+
+PS: If you wanna to use the client with docker you should add in your host files `127.0.0.1 my-keycloak`
 
 #### Spring Boot Client
 
 Execute `./gradlew bootRun`
 
-
-Notes: If you wanna to package the application, run this command: `./gradlew build`
 
 ### Running the application
 
@@ -60,9 +64,9 @@ But we have also two parameters that are included by Spring application:
 * **state:** RECOMMENDED. Opaque value used to maintain state between the request and the callback. Typically, Cross-Site Request Forgery (CSRF, XSRF) mitigation is done by cryptographically binding the value of this parameter with a browser cookie.
 * **nonce:** String value used to associate a Client session with an ID Token, and to mitigate replay attacks.
 
-In the callbackUrl, we will have something like this: `http://localhost:8090/teste?state=__FYubYGtjQI4oYOcLSla_D0hVXNEh2WhZgi12OuIyQ%3D&session_state=058a2f21-2ab4-41bc-9b8a-abbe294362dc&code=432b4280-295a-44dc-8d04-a3b1b233c103.058a2f21-2ab4-41bc-9b8a-abbe294362dc.020d79f9-de50-4015-ac78-b98bcf4b465e` \
+In the callbackUrl, we will have something like this: `http://localhost:8090?state=__FYubYGtjQI4oYOcLSla_D0hVXNEh2WhZgi12OuIyQ%3D&session_state=058a2f21-2ab4-41bc-9b8a-abbe294362dc&code=432b4280-295a-44dc-8d04-a3b1b233c103.058a2f21-2ab4-41bc-9b8a-abbe294362dc.020d79f9-de50-4015-ac78-b98bcf4b465e` 
 
-* **state:** is used to verify if it matches with the used before.\
+* **state:** is used to verify if it matches with the used before.
 * **code:** is used to do the exchange token and retrieve the ID Token and/or AccessToken.
 
 The Spring OAuth2 is responsible to encapsulate the exchange token done by the callbackUrl.

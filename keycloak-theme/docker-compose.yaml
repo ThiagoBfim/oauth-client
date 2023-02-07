@@ -1,9 +1,21 @@
-version: '3'
+version: '3.8'
 
 services:
-  app:
+  client:
     build: .
-    container_name: keycloak
+    container_name: client
+    environment:
+      - SPRING_PROFILE=prod
+    ports:
+      - "8090:8090"
+    depends_on:
+      keycloak:
+        condition: service_healthy
+    restart: always
+  keycloak:
+    image: quay.io/keycloak/keycloak:20.0.3
+    container_name: my-keycloak
+    restart: always
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
@@ -19,9 +31,14 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     command:
       - start-dev
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080" ]
+      timeout: 10s
+      retries: 5
   db:
     image: mysql:8
     container_name: keycloak_mysql
@@ -34,3 +51,7 @@ services:
     environment:
       - MYSQL_DATABASE=keycloak
       - MYSQL_ROOT_PASSWORD=root
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10

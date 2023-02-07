@@ -39,4 +39,6 @@ out/
 
 ### Application ###
 
-/keycloack-theme/.docker/
+/keycloak-theme/.docker/
+
+*.jar

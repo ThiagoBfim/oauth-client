@@ -1,0 +1,10 @@
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://my-keycloak:8080/realms/myrealm
+      resourceserver:
+        jwt:
+          issuer-uri: http://my-keycloak:8080/realms/myrealm
